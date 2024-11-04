@@ -13,3 +13,8 @@ A rhythm driven game, where you have to close windows 95 error pop-ups on time t
   * Game loop
     * Loose life on failed window -> Plant easter egg
     * Sunshine if u win
+
+## Tech 
+Backend => Atix
+Frontend => TODO
+DB => SQLite probaly
