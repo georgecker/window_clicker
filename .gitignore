@@ -1,10 +1,7 @@
 # Client
-node_modules
-.DS_Store
-dist
-dist-ssr
-coverage
-*.local
+node_modules/
+bun.lockb
 
 # Server
-target
+Cargo.lock
+target/

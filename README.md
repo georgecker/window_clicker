@@ -18,3 +18,25 @@ A rhythm driven game, where you have to close windows 95 error pop-ups on time t
 Backend => Atix
 Frontend => TODO
 DB => SQLite probaly
+
+## Build:
+Currently you have to build and run the server and the client separately
+
+### Client:
+```
+# Start in the window_clicker dir 
+cd server 
+
+# Install node modules if not done so bevore
+bun install 
+
+# Run client in dev mode
+bun run dev
+```
+
+### Server:
+```
+cargo run
+```
+
+* Might add cargo-make in the future, depending on the size of the project. Or if it just annoys me to build the server and client separately
