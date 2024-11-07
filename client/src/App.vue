@@ -1,47 +1,19 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import Win98Popup from './components/Win98Popup.vue'
+
+function p() {
+  console.log("Hehe");
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
   <main>
-    <TheWelcome />
+    <Win98Popup :x=200 :y=350 title="Paint" message="Save all my duck pics ?" btn-message="Yes" :timer-ms="2000"
+      @timer-over="p" />
   </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<style scoped></style>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<!-- Dynamicly add and remove divs -->
+<!-- https://stackoverflow.com/questions/61145426/adding-and-removing-divs-dynamically-in-vue-js-component -->
