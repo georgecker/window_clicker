@@ -2,6 +2,7 @@
 import { onMounted } from 'vue';
 
 const props = defineProps({
+  id: Number,
   x: {
     type: Number,
     required: true,
@@ -23,15 +24,14 @@ const emit = defineEmits({
 
 let timer;
 
+function onClose() {
+  clearTimeout(timer);
+  emit('closed', props.id);
+}
+
 onMounted(() => {
   timer = setTimeout(() => emit('timerOver'), props.timerMs);
 });
-
-function onClose() {
-  clearTimeout(timer);
-  emit('closed');
-}
-
 </script>
 
 <template>
