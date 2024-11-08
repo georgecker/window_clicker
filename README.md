@@ -1,10 +1,12 @@
+bun run dev
 # Window_clicker
 A rhythm driven game, where you have to close windows 95 error pop-ups on time to prevent your shitbox from getting infected.
 
 ## TODOs
 * STATE 1:
-  * Clickable window template -> HTML component
-  * Windows background
+  * Clickable window template (/)
+    * Make draggable (/)
+  * Windows background (/)
   * Make music playable on webpage
   * Extract beats from music file
   * Map window closing click to beat

@@ -1,42 +1,73 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const props = defineProps({
-  id: Number,
-  x: {
-    type: Number,
-    required: true,
-  },
-  y: {
-    type: Number,
-    required: true,
+  id: { type: Number, required: true },
+  pos: {
+    x: { type: Number, required: true },
+    y: { type: Number, required: true },
   },
   title: String,
   message: String,
   btnMessage: String,
   timerMs: Number,
-})
+});
+
+let timer;
+let mutPos = props.pos;
+let mousePosBuffer = {
+  x: 0,
+  y: 0,
+}
+
+const win98popup = ref(null);
+const headerBar = ref(null);
 
 const emit = defineEmits({
   timerOver: [],
   closed: [],
 });
 
-let timer;
+onMounted(() => {
+  console.log(headerBar.value);
+  console.log(win98popup.value);
+  if (props.timerMs != undefined) {
+    timer = setTimeout(() => emit('timerOver'), props.timerMs);
+  }
+});
 
 function onClose() {
   clearTimeout(timer);
   emit('closed', props.id);
 }
 
-onMounted(() => {
-  timer = setTimeout(() => emit('timerOver'), props.timerMs);
-});
+function setElementDrag(event) {
+  console.log("Set drag");
+  event.preventDefault();
+  mousePosBuffer.x = event.clientX;
+  mousePosBuffer.y = event.clientY;
+  document.onmousemove = elementDrag;
+}
+
+function removeElemntDrag() {
+  console.log("Remove drag");
+  document.onmousemove = null;
+}
+
+function elementDrag(event) {
+  event.preventDefault();
+  mutPos.x = mutPos.x - (mousePosBuffer.x - event.clientX);
+  mutPos.y = mutPos.y - (mousePosBuffer.y - event.clientY);
+  mousePosBuffer.x = event.clientX;
+  mousePosBuffer.y = event.clientY;
+}
+
 </script>
 
 <template>
-  <div class="win98popup shadow" :style="{ top: props.y + 'px', left: props.x + 'px' }">
-    <div class="bar">
+  <div ref="win98popup" @mouseup="removeElemntDrag" class="win98popup shadow"
+    :style="{ top: mutPos.y + 'px', left: mutPos.x + 'px' }">
+    <div ref="headerBar" @mousedown="setElementDrag" class="bar">
       <p>{{ props.title }}</p>
     </div>
     <section>
