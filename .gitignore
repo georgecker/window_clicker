@@ -1,6 +1,6 @@
 # Client
 node_modules/
-dest/
+dist/
 bun.lockb
 
 # Server
