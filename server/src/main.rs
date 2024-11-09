@@ -1,5 +1,6 @@
 use actix_web::{get, web, HttpServer, Responder, Result};
 use serde::Serialize;
+use terminal_link::Link;
 
 #[derive(Debug, Serialize)]
 struct ResponseBody<S>
@@ -19,14 +20,17 @@ async fn hello() -> Result<impl Responder> {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let debug = std::env::var("DEBUG").is_ok();
-    let bind_port: u16 = std::env::var("SERVER_PORT")
-        .unwrap_or("8080".to_string())
-        .parse()
-        .unwrap();
+    let port = std::env::var("SERVER_PORT").unwrap_or("8080".to_string());
+    let bind_port: u16 = port.parse().unwrap();
     let bind_host = if debug { "127.0.0.1" } else { "0.0.0.0" };
 
+    let domain = format!("{}:{}", bind_host, port);
+    let url = format!("http://{}", domain);
+    let link = Link::new(&url, &url);
+    println!("Serving to: {}", link);
+
     let app = || {
-        let assets_dir = std::env::var("ASSETS_DIR").unwrap_or("./client/dist".to_string());
+        let assets_dir = std::env::var("ASSETS_DIR").unwrap_or("../client/dist".to_string());
 
         actix_web::App::new()
             .service(hello)
